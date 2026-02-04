@@ -22,6 +22,7 @@ set(qml_files
     "Main.qml"
     "components/CAnim.qml"
     "components/StyledText.qml"
+    "utils/Appearance.qml"
     "utils/Palette.qml"
 )
 
