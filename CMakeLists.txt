@@ -23,11 +23,15 @@ set(qml_files
 )
 
 set(qml_singletons
-    "Colours.qml"
+    "utils/Colours.qml"
 )
 
 set_source_files_properties(${qml_singletons}
     PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
+qt_add_resources(caelestia-welcome "/qt/qml/caelestia/welcome"
+    PREFIX "/"
+    FILES ${qml_files} ${qml_singletons})
 
 qt_add_qml_module(caelestia-welcome
     URI caelestia.welcome

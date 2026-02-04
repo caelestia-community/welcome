@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("schemeFilePath", schemePath);
 
     // Register Colours singleton
-    qmlRegisterSingletonType(QUrl("qrc:/caelestia/welcome/Colours.qml"), "caelestia.welcome", 1, 0, "Colours");
+    qmlRegisterSingletonType(QUrl("qrc:/utils/Colours.qml"), "caelestia.welcome", 1, 0, "Colours");
 
-    const QUrl url(QStringLiteral("qrc:/caelestia/welcome/Main.qml"));
+    const QUrl url(QStringLiteral("qrc:/Main.qml"));
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
                      &app, []() { QCoreApplication::exit(-1); },
