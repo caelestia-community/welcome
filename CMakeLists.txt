@@ -22,6 +22,7 @@ set(qml_files
     "Main.qml"
     "components/CAnim.qml"
     "components/StyledText.qml"
+    "utils/Palette.qml"
 )
 
 set(qml_singletons
