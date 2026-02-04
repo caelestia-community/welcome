@@ -10,10 +10,10 @@ ApplicationWindow {
 
     color: Colours.palette.m3background
 
-    Text {
+    StyledText {
         anchors.centerIn: parent
-        text: "Welcome to Caelestia"
-        font.pointSize: 28
+        text: `Welcome to Caelestia`
+        font.pointSize: Config.appearance.font.size.extraLarge
         color: Colours.palette.m3onBackground
     }
 }

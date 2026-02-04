@@ -29,6 +29,17 @@ int main(int argc, char *argv[])
     // Register Colours singleton
     qmlRegisterSingletonType(QUrl("qrc:/utils/Colours.qml"), "caelestia.welcome", 1, 0, "Colours");
 
+    // Set config path in QML context
+    QString configDir = QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation);
+    if (configDir.isEmpty()) {
+        configDir = QDir::homePath() + "/.config";
+    }
+    QString configPath = configDir + "/caelestia/shell.json";
+    engine.rootContext()->setContextProperty("configFilePath", configPath);
+
+    // Register Config singleton
+    qmlRegisterSingletonType(QUrl("qrc:/utils/Config.qml"), "caelestia.welcome", 1, 0, "Config");
+
     const QUrl url(QStringLiteral("qrc:/Main.qml"));
 
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,

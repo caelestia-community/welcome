@@ -20,10 +20,13 @@ set_target_properties(caelestia-welcome PROPERTIES
 
 set(qml_files
     "Main.qml"
+    "components/CAnim.qml"
+    "components/StyledText.qml"
 )
 
 set(qml_singletons
     "utils/Colours.qml"
+    "utils/Config.qml"
 )
 
 set_source_files_properties(${qml_singletons}
