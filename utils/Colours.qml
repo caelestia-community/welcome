@@ -1,21 +1,12 @@
 pragma Singleton
 
 import QtQuick
+import caelestia.welcome
 
 Item {
     id: root
 
-    // Default Caelestia color scheme (fallback)
-    property QtObject palette: QtObject {
-        property color m3background: "#191114"
-        property color m3onBackground: "#efdfe2"
-        property color m3onSurface: "#efdfe2"
-        property color m3primary: "#ffb0ca"
-        property color m3onPrimary: "#541d34"
-        property color m3surfaceContainer: "#261d20"
-        property color m3onSurfaceVariant: "#d5c2c6"
-        property color m3surface: "#191114"
-    }
+    property Palette palette: Palette {}
 
     // Get scheme path from C++ context property, with fallback
     property string schemePath: {
@@ -50,8 +41,26 @@ Item {
         }
     }
 
+    function flattenColours(obj: var, prefix: string): var {
+        const result = {};
+
+        for (const [key, value] of Object.entries(obj)) {
+            const newKey = prefix ? prefix + key.charAt(0).toUpperCase() + key.slice(1) : key;
+
+            if (value !== null && typeof value === "object" && !Array.isArray(value) && typeof value !== "string") {
+                Object.assign(result, flattenColours(value, newKey));
+            } else if (typeof value === "string") {
+                result[newKey] = value;
+            }
+        }
+
+        return result;
+    }
+
     function applyScheme(scheme: var): void {
-        for (const [name, colour] of Object.entries(scheme.colours || {})) {
+        const flat = flattenColours(scheme.colours || {}, "");
+
+        for (const [name, colour] of Object.entries(flat)) {
             const propName = name.startsWith("term") ? name : `m3${name}`;
             if (palette.hasOwnProperty(propName)) {
                 palette[propName] = `#${colour}`;
