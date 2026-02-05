@@ -1,6 +1,7 @@
 import QtQuick
 
 QtObject {
+    property string mode: "dark"
     property color m3background: "#191114"
     property color m3onBackground: "#efdfe2"
     property color m3onSurface: "#efdfe2"

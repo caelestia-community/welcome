@@ -41,14 +41,14 @@ Item {
         }
     }
 
-    function flattenColours(obj: var, prefix: string): var {
+    function flattenConfigs(obj: var, prefix: string): var {
         const result = {};
 
         for (const [key, value] of Object.entries(obj)) {
             const newKey = prefix ? prefix + key.charAt(0).toUpperCase() + key.slice(1) : key;
 
             if (value !== null && typeof value === "object" && !Array.isArray(value) && typeof value !== "string") {
-                Object.assign(result, flattenColours(value, newKey));
+                Object.assign(result, flattenConfigs(value, newKey));
             } else if (typeof value === "string") {
                 result[newKey] = value;
             }
@@ -58,12 +58,20 @@ Item {
     }
 
     function applyScheme(scheme: var): void {
-        const flat = flattenColours(scheme.colours || {}, "");
+        let flat;
 
+        flat = flattenConfigs(scheme.colours || {}, "");
         for (const [name, colour] of Object.entries(flat)) {
             const propName = name.startsWith("term") ? name : `m3${name}`;
             if (palette.hasOwnProperty(propName)) {
                 palette[propName] = `#${colour}`;
+            }
+        }
+
+        flat = flattenConfigs(scheme || {}, "");
+        for (const [name, opt] of Object.entries(flat)) {
+            if (palette.hasOwnProperty(name)) {
+                palette[name] = `${opt}`;
             }
         }
     }
