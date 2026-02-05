@@ -58,7 +58,7 @@ Item {
     }
 
     function applyConfig(config: var): void {
-        let flat
+        let flat;
 
         flat = flattenConfigs(config.appearance.rounding || {}, "");
         for (const [name, opt] of Object.entries(flat)) {
