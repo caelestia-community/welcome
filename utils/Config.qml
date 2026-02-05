@@ -6,7 +6,7 @@ import caelestia.welcome
 Item {
     id: root
 
-    property Appearance appearance: Appearance {}
+    property var appearance: Appearance {}
 
     // Get config path from C++ context property, with fallback
     property string configPath: {

@@ -24,13 +24,13 @@ QtObject {
         property int larger: 15 * scale
         property int large: 20 * scale
     }
-    property QtObject font: QtObject {
-        property QtObject family: QtObject {
+    property var font: QtObject {
+        property var family: QtObject {
             property string sans: "Rubik"
             property string mono: "CaskaydiaCove NF"
             property string material: "Material Symbols Rounded"
         }
-        property QtObject size: QtObject {
+        property var size: QtObject {
             property real scale: 1
             property int small: 11 * scale
             property int smaller: 12 * scale
@@ -40,8 +40,8 @@ QtObject {
             property int extraLarge: 28 * scale
         }
     }
-    property QtObject anim: QtObject {
-        property QtObject curves: QtObject {
+    property var anim: QtObject {
+        property var curves: QtObject {
             property list<real> emphasized: [0.05, 0, 2 / 15, 0.06, 1 / 6, 0.4, 5 / 24, 0.82, 0.25, 1, 1, 1]
             property list<real> emphasizedAccel: [0.3, 0, 0.8, 0.15, 1, 1]
             property list<real> emphasizedDecel: [0.05, 0.7, 0.1, 1, 1, 1]
@@ -52,7 +52,7 @@ QtObject {
             property list<real> expressiveDefaultSpatial: [0.38, 1.21, 0.22, 1, 1, 1]
             property list<real> expressiveEffects: [0.34, 0.8, 0.34, 1, 1, 1]
         }
-        property QtObject durations: QtObject {
+        property var durations: QtObject {
             property real scale: 1
             property int small: 200 * scale
             property int normal: 400 * scale
