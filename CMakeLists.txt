@@ -23,6 +23,8 @@ set_target_properties(caelestia-welcome PROPERTIES
 set(qml_files
     "Main.qml"
     "components/CAnim.qml"
+    "components/MaterialIcon.qml"
+    "components/StyledRect.qml"
     "components/StyledText.qml"
     "utils/Appearance.qml"
     "utils/Palette.qml"
