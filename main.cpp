@@ -18,13 +18,16 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    // Set scheme path in QML context before registering singleton
+    QString caelestiaQmlDir = QDir::homePath() + "/.config/quickshell/caelestia/build/qml";
+    engine.addImportPath(caelestiaQmlDir);
+
+    // Set state path in QML context before registering singleton
     QString stateDir = QStandardPaths::writableLocation(QStandardPaths::GenericStateLocation);
     if (stateDir.isEmpty()) {
         stateDir = QDir::homePath() + "/.local/state";
     }
-    QString schemePath = stateDir + "/caelestia/scheme.json";
-    engine.rootContext()->setContextProperty("schemeFilePath", schemePath);
+    QString statePath = stateDir + "/caelestia";
+    engine.rootContext()->setContextProperty("stateFilePath", statePath);
 
     // Register Colours singleton
     qmlRegisterSingletonType(QUrl("qrc:/utils/Colours.qml"), "caelestia.welcome", 1, 0, "Colours");

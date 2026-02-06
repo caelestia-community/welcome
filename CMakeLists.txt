@@ -8,6 +8,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick Core Gui)
 
+set(CAELESTIA_QML_DIR "$ENV{HOME}/.config/quickshell/caelestia/build/qml"
+    CACHE PATH "Path to Caelestia QML modules")
+
 qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(caelestia-welcome
@@ -22,6 +25,10 @@ set(qml_files
     "Main.qml"
     "components/CAnim.qml"
     "components/StyledText.qml"
+    "components/StyledRect.qml"
+    "components/SectionContainer.qml"
+    "sections/WelcomeSection.qml"
+    "sections/AppearanceSection.qml"
     "utils/Appearance.qml"
     "utils/Palette.qml"
 )
@@ -42,11 +49,13 @@ qt_add_qml_module(caelestia-welcome
     URI caelestia.welcome
     VERSION 1.0.0
     QML_FILES ${qml_files} ${qml_singletons}
+    IMPORT_PATH ${CAELESTIA_QML_DIR}
 )
 
 target_link_libraries(caelestia-welcome PRIVATE
     Qt6::Core
     Qt6::Gui
+    Qt6::Quick
 )
 
 include(GNUInstallDirs)
