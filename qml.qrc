@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/assets/">
+    <file alias="logo-dark.svg">assets/logo-dark.svg</file>
+    <file alias="logo-light.svg">assets/logo-light.svg</file>
+  </qresource>
+</RCC>
