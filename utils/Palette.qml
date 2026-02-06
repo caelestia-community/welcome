@@ -8,6 +8,7 @@ QtObject {
     property color m3primary: "#ffb0ca"
     property color m3onPrimary: "#541d34"
     property color m3surfaceContainer: "#261d20"
+    property color m3surfaceContainerHigh: "#31282a"
     property color m3onSurfaceVariant: "#d5c2c6"
     property color m3surface: "#191114"
 }
