@@ -1,0 +1,3 @@
+module qs.utils
+singleton Paths 1.0 file:///home/guest/.config/quickshell/caelestia/utils/Paths.qml
+Searcher 1.0 file:///home/guest/.config/quickshell/caelestia/utils/Searcher.qml

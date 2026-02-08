@@ -1,0 +1,3 @@
+module qs.services
+singleton Colours 1.0 file:///home/guest/.config/quickshell/caelestia/services/Colours.qml
+singleton Wallpapers 1.0 file:///home/guest/.config/quickshell/caelestia/services/Wallpapers.qml

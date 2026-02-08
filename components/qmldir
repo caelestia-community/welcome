@@ -1,0 +1,3 @@
+module components
+NavButton 1.0 NavButton.qml
+InfoCard 1.0 InfoCard.qml

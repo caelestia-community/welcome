@@ -1,24 +1,30 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
-import caelestia.welcome
+import QtQuick.Controls
+import qs.services
+import qs.config
+import qs.components as Caelestia
+import "components"
+import "pages/Welcome"
+import "pages/GettingStarted"
+import "pages/Appearance"
+import "pages/Modules"
+import "pages/Resources"
 
-ApplicationWindow {
+Rectangle {
     id: root
 
-    width: 1000
-    height: 600
-    visible: true
-    title: qsTr("Welcome to Caelestia")
+    property int currentPage: 0
+
+    readonly property var pages: [
+        { name: "Welcome", icon: "waving_hand" },
+        { name: "Getting Started", icon: "rocket_launch" },
+        { name: "Appearance", icon: "palette" },
+        { name: "Modules", icon: "widgets" },
+        { name: "Resources", icon: "help" },
+    ]
 
     color: Colours.palette.m3background
-
-    property int currentSection: 0
-
-    readonly property var sections: [
-        { name: "Welcome", icon: "waving_hand" },
-        { name: "Appearance", icon: "palette" },
-    ]
 
     RowLayout {
         anchors.fill: parent
@@ -27,90 +33,51 @@ ApplicationWindow {
         // Sidebar
         Rectangle {
             Layout.fillHeight: true
-            Layout.preferredWidth: 200
-
+            Layout.preferredWidth: 220
+            
             color: Colours.palette.m3surfaceContainer
-
-            Behavior on color { CAnim {} }
 
             ColumnLayout {
                 anchors.fill: parent
-                anchors.margins: Config.appearance.padding.normal
-                spacing: Config.appearance.spacing.small
+                anchors.margins: 16
+                spacing: 8
 
-                // Logo
+                // Logo/Title
                 RowLayout {
-                    Layout.leftMargin: Config.appearance.padding.small
-                    Layout.bottomMargin: Config.appearance.spacing.normal
-                    spacing: Config.appearance.spacing.normal
+                    Layout.leftMargin: 8
+                    Layout.bottomMargin: 16
+                    spacing: 12
 
-                    StyledText {
+                    Text {
                         text: "Caelestia"
-                        font.pointSize: Config.appearance.font.size.larger
+                        font.pointSize: 18
                         font.bold: true
                         color: Colours.palette.m3onSurface
                     }
                 }
 
-                // Nav items
+                // Navigation buttons
                 Repeater {
-                    model: root.sections
+                    model: root.pages
 
-                    Rectangle {
-                        id: navItem
-
-                        required property int index
-                        required property var modelData
-
+                    NavButton {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 40
-
-                        radius: Config.appearance.rounding.small
-                        color: root.currentSection === navItem.index
-                            ? Colours.palette.m3primary
-                            : navMouse.containsMouse
-                                ? Colours.palette.m3surfaceContainerHigh
-                                : "transparent"
-
-                        Behavior on color { CAnim {} }
-
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.leftMargin: Config.appearance.padding.normal
-                            anchors.rightMargin: Config.appearance.padding.normal
-                            spacing: Config.appearance.spacing.small
-
-                            StyledText {
-                                text: navItem.modelData.icon
-                                font.family: Config.appearance.font.family.material
-                                font.pointSize: Config.appearance.font.size.normal
-                                color: root.currentSection === navItem.index
-                                    ? Colours.palette.m3onPrimary
-                                    : Colours.palette.m3onSurfaceVariant
-                            }
-
-                            StyledText {
-                                Layout.fillWidth: true
-                                text: navItem.modelData.name
-                                color: root.currentSection === navItem.index
-                                    ? Colours.palette.m3onPrimary
-                                    : Colours.palette.m3onSurface
-                            }
-                        }
-
-                        MouseArea {
-                            id: navMouse
-
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            cursorShape: Qt.PointingHandCursor
-                            onClicked: root.currentSection = navItem.index
-                        }
+                        text: modelData.name
+                        icon: modelData.icon
+                        active: root.currentPage === index
+                        onClicked: root.currentPage = index
                     }
                 }
 
                 Item { Layout.fillHeight: true }
 
+                // Close button
+                NavButton {
+                    Layout.fillWidth: true
+                    text: "Close"
+                    icon: "close"
+                    onClicked: Qt.quit()
+                }
             }
         }
 
@@ -118,32 +85,131 @@ ApplicationWindow {
         Rectangle {
             Layout.fillHeight: true
             Layout.preferredWidth: 1
-
-            color: Colours.palette.m3outline
+            color: Colours.palette.m3outlineVariant
         }
 
-        // Content area
-        Flickable {
+        // Content area with vertical scrolling animation
+        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-            contentHeight: contentLoader.item ? contentLoader.item.implicitHeight + Config.appearance.padding.large * 2 : 0
             clip: true
-            boundsBehavior: Flickable.StopAtBounds
 
-            Loader {
-                id: contentLoader
+            ColumnLayout {
+                id: pagesLayout
+                
+                width: parent.width
+                spacing: 0
+                y: -root.currentPage * parent.height
 
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.margins: Config.appearance.padding.large
+                Behavior on y {
+                    NumberAnimation {
+                        duration: Appearance.anim.durations.normal
+                        easing.type: Easing.OutCubic
+                    }
+                }
 
-                sourceComponent: {
-                    switch (root.currentSection) {
-                    case 0: return welcomeComponent;
-                    case 1: return appearanceComponent;
-                    default: return welcomeComponent;
+                // Welcome page
+                Item {
+                    Layout.fillWidth: true
+                    implicitHeight: root.height
+
+                    Flickable {
+                        anchors.fill: parent
+                        anchors.margins: 32
+                        contentHeight: welcomeLoader.item ? welcomeLoader.item.implicitHeight : 0
+                        boundsBehavior: Flickable.StopAtBounds
+                        clip: true
+
+                        Loader {
+                            id: welcomeLoader
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            sourceComponent: welcomeComponent
+                        }
+                    }
+                }
+
+                // Getting Started page
+                Item {
+                    Layout.fillWidth: true
+                    implicitHeight: root.height
+
+                    Flickable {
+                        anchors.fill: parent
+                        anchors.margins: 32
+                        contentHeight: gettingStartedLoader.item ? gettingStartedLoader.item.implicitHeight : 0
+                        boundsBehavior: Flickable.StopAtBounds
+                        clip: true
+
+                        Loader {
+                            id: gettingStartedLoader
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            sourceComponent: gettingStartedComponent
+                        }
+                    }
+                }
+
+                // Appearance page
+                Item {
+                    Layout.fillWidth: true
+                    implicitHeight: root.height
+
+                    Flickable {
+                        anchors.fill: parent
+                        anchors.margins: 32
+                        contentHeight: appearanceLoader.item ? appearanceLoader.item.implicitHeight : 0
+                        boundsBehavior: Flickable.StopAtBounds
+                        clip: true
+
+                        Loader {
+                            id: appearanceLoader
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            sourceComponent: appearanceComponent
+                        }
+                    }
+                }
+
+                // Modules page
+                Item {
+                    Layout.fillWidth: true
+                    implicitHeight: root.height
+
+                    Flickable {
+                        anchors.fill: parent
+                        anchors.margins: 32
+                        contentHeight: modulesLoader.item ? modulesLoader.item.implicitHeight : 0
+                        boundsBehavior: Flickable.StopAtBounds
+                        clip: true
+
+                        Loader {
+                            id: modulesLoader
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            sourceComponent: modulesComponent
+                        }
+                    }
+                }
+
+                // Resources page
+                Item {
+                    Layout.fillWidth: true
+                    implicitHeight: root.height
+
+                    Flickable {
+                        anchors.fill: parent
+                        anchors.margins: 32
+                        contentHeight: resourcesLoader.item ? resourcesLoader.item.implicitHeight : 0
+                        boundsBehavior: Flickable.StopAtBounds
+                        clip: true
+
+                        Loader {
+                            id: resourcesLoader
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            sourceComponent: resourcesComponent
+                        }
                     }
                 }
             }
@@ -152,11 +218,26 @@ ApplicationWindow {
 
     Component {
         id: welcomeComponent
-        WelcomeSection {}
+        Welcome {}
+    }
+
+    Component {
+        id: gettingStartedComponent
+        GettingStarted {}
     }
 
     Component {
         id: appearanceComponent
-        AppearanceSection {}
+        Appearance {}
+    }
+
+    Component {
+        id: modulesComponent
+        Modules {}
+    }
+
+    Component {
+        id: resourcesComponent
+        Resources {}
     }
 }

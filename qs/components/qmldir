@@ -1,0 +1,5 @@
+module qs.components
+MaterialIcon 1.0 file:///home/guest/.config/quickshell/caelestia/components/MaterialIcon.qml
+StyledText 1.0 file:///home/guest/.config/quickshell/caelestia/components/StyledText.qml
+StateLayer 1.0 file:///home/guest/.config/quickshell/caelestia/components/StateLayer.qml
+StyledRect 1.0 file:///home/guest/.config/quickshell/caelestia/components/StyledRect.qml

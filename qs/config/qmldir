@@ -1,0 +1,20 @@
+module qs.config
+AppearanceConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/AppearanceConfig.qml
+singleton Appearance 1.0 file:///home/guest/.config/quickshell/caelestia/config/Appearance.qml
+BackgroundConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/BackgroundConfig.qml
+BarConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/BarConfig.qml
+BorderConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/BorderConfig.qml
+singleton Config 1.0 file:///home/guest/.config/quickshell/caelestia/config/Config.qml
+ControlCenterConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/ControlCenterConfig.qml
+DashboardConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/DashboardConfig.qml
+GeneralConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/GeneralConfig.qml
+LauncherConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/LauncherConfig.qml
+LockConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/LockConfig.qml
+NotifsConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/NotifsConfig.qml
+OsdConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/OsdConfig.qml
+ServiceConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/ServiceConfig.qml
+SessionConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/SessionConfig.qml
+SidebarConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/SidebarConfig.qml
+UserPaths 1.0 file:///home/guest/.config/quickshell/caelestia/config/UserPaths.qml
+UtilitiesConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/UtilitiesConfig.qml
+WInfoConfig 1.0 file:///home/guest/.config/quickshell/caelestia/config/WInfoConfig.qml
